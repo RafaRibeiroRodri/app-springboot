@@ -14,26 +14,26 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "usr_usuario")
-public class Usuario {
+@Table(name = "livros")
+public class Livros {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usr_id")
+    @Column(name = "livro_id")
     private Long id;
 
-    @Column(name = "usr_nome")
+    @Column(name = "livro_nome")
     private String nome;
 
-    @Column(name = "usr_senha")
-    private String senha;
+    @Column(name = "livro_autor")
+    private String autor;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "uau_usuario_autorizacao",
-        joinColumns = { @JoinColumn(name = "usr_id")},
-        inverseJoinColumns = { @JoinColumn(name = "aut_id") }
+    @JoinTable(name = "livro_categoria",
+        joinColumns = { @JoinColumn(name = "livro_id")},
+        inverseJoinColumns = { @JoinColumn(name = "categoria_id") }
         )
-    private Set<Autorizacao> autorizacoes;
+    private Set<Categoria> categorizacao;
 
     public Long getId() {
         return this.id;
@@ -51,20 +51,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getSenha() {
-        return this.senha;
+    public String getAutor() {
+        return this.autor;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
-
-    public Set<Autorizacao> getAutorizacoes() {
-        return this.autorizacoes;
-    }
-
-    public void setAutorizacoes(Set<Autorizacao> autorizacoes) {
-        this.autorizacoes = autorizacoes;
-    }
-
 }
