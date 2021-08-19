@@ -1,6 +1,5 @@
 package br.gov.sp.fatec.springbootapp.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

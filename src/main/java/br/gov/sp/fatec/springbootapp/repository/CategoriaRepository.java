@@ -6,4 +6,6 @@ import br.gov.sp.fatec.springbootapp.entity.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     
+    public Categoria findByNome(String nome);
+
 }

@@ -27,13 +27,13 @@ public class Livros {
 
     @Column(name = "livro_autor")
     private String autor;
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "livro_categoria",
         joinColumns = { @JoinColumn(name = "livro_id")},
         inverseJoinColumns = { @JoinColumn(name = "categoria_id") }
-        )
-    private Set<Categoria> categorizacao;
+    )
+    private Set<Categoria> categorias;
 
     public Long getId() {
         return this.id;
@@ -57,5 +57,13 @@ public class Livros {
 
     public void setAutor(String autor) {
         this.autor = autor;
+    }
+
+    public Set<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(Set<Categoria> categorias) {
+        this.categorias = categorias;
     }
 }
