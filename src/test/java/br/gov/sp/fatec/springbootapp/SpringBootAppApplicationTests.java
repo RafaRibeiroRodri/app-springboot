@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashSet;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,28 +65,23 @@ class SpringBootAppApplicationTests {
     }
 
     @Test
-    void livrosRepositoryFindByCategoriasNomeTest() {
-        Categoria cat = new Categoria();
-        cat.setNome("Educação");
-        catRepo.save(cat);
-        Livros livros = new Livros();
-        livros.setNome("Introdução a programação");
-        livros.setAutor("autor");
-        livros.setCategorias(new HashSet<Categoria>());
-        livros.getCategorias().add(cat);
-        livrosRepo.save(livros);
-
-        List<Livros> livro = livrosRepo.findByCategoriasNome("Educação");
-
-        assertFalse(livro.isEmpty());
-    }
-
-    @Test
     void livrosServiceCadastrarLivroTest() {
         livrosService.cadastrarLivro("Introdução a programação", "autor", "Educação");
 
-        List<Livros> livro = livrosRepo.findByCategoriasNome("Educação");
+        assertNotNull(livrosRepo.findByNome("Introdução a programação").getId());
+    }
 
-        assertFalse(livro.isEmpty());
+    @Test
+    void livrosServiceFindByNomeAndAutorTest() {
+        livrosService.cadastrarLivro("Introdução a programação", "autor", "Educação");
+
+        assertNotNull(livrosRepo.findByNomeAndAutor("Introdução a programação", "autor").getId());
+    }
+
+    @Test
+    void livrosRepositoryBuscaPorCategoriaTest() {
+        livrosService.cadastrarLivro("Introdução a programação", "autor", "Educação");
+
+        assertFalse(livrosRepo.buscaPorNomeCategoria("Educação").isEmpty());
     }
 }
