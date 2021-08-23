@@ -27,6 +27,9 @@ public class Livros {
 
     @Column(name = "livro_autor")
     private String autor;
+
+    @Column(name = "livro_editora")
+    private String editora;
     
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "livro_categoria",
@@ -57,6 +60,14 @@ public class Livros {
 
     public void setAutor(String autor) {
         this.autor = autor;
+    }
+
+    public String getEditora() {
+        return this.editora;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
     }
 
     public Set<Categoria> getCategorias() {

@@ -10,6 +10,7 @@ create table livros (
   livro_id bigint unsigned not null auto_increment,
   livro_nome varchar(100) not null,
   livro_autor varchar(100) not null,
+  livro_editora varchar(100) not null,
   primary key (livro_id),
   unique key uni_livro_nome (livro_nome)
 );

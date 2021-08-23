@@ -4,7 +4,7 @@ import br.gov.sp.fatec.springbootapp.entity.Livros;
 
 public interface LivrosService {
 
-    public Livros cadastrarLivro(String nome, String autor, String categoria);
+    public Livros cadastrarLivro(String nome, String autor, String editora, String categoria);
     
 }
 

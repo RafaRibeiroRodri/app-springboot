@@ -58,6 +58,7 @@ class SpringBootAppApplicationTests {
         Livros livros = new Livros();
         livros.setNome("Introdução a programação");
         livros.setAutor("autor");
+        livros.setEditora("editora");
         livros.setCategorias(new HashSet<Categoria>());
         livros.getCategorias().add(cat);
         livrosRepo.save(livros);
@@ -66,40 +67,46 @@ class SpringBootAppApplicationTests {
 
     @Test
     void livrosServiceCadastrarLivroTest() {
-        livrosService.cadastrarLivro("Introdução a programação", "autor", "Educação");
+        livrosService.cadastrarLivro("Introdução a programação", "autor", "editora", "Educação");
 
         assertNotNull(livrosRepo.findByNome("Introdução a programação").getId());
     }
 
     @Test
     void livrosServiceFindByNomeAndAutorTest() {
-        livrosService.cadastrarLivro("Introdução a programação", "autor", "Educação");
+        livrosService.cadastrarLivro("Introdução a programação", "autor", "editora", "Educação");
 
         assertNotNull(livrosRepo.findByNomeAndAutor("Introdução a programação", "autor").getId());
     }
 
     @Test
     void livrosRepositoryBuscaPorCategoriaTest() {
-        livrosService.cadastrarLivro("Introdução a programação", "autor", "Educação");
+        livrosService.cadastrarLivro("Introdução a programação", "autor", "editora", "Educação");
 
         assertFalse(livrosRepo.buscaPorNomeCategoria("Educação").isEmpty());
     }
 
     @Test
     void livrosServiceErrorNomeTest() {
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("", "autor", "Educação"));
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("", "autor", "editora", "Educação"));
         assertTrue(runtimeException.getMessage().contains("Invalid Parameters"));
     }
 
     @Test
     void livrosServiceErrorAutorTest() {
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("Introdução a programação", "", "Educação"));
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("Introdução a programação", "", "editora", "Educação"));
+        assertTrue(runtimeException.getMessage().contains("Invalid Parameters"));
+    }
+
+    @Test
+    void livrosServiceErrorEditoraTest() {
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("Introdução a programação", "autor", "", "Educação"));
         assertTrue(runtimeException.getMessage().contains("Invalid Parameters"));
     }
 
     @Test
     void livrosServiceErrorCategoriaTest() {
-        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("Introdução a programação", "autor", ""));
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("Introdução a programação", "autor", "editora", ""));
         assertTrue(runtimeException.getMessage().contains("Invalid Parameters"));
     }
 }

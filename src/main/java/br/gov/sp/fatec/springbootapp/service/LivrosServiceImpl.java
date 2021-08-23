@@ -22,9 +22,9 @@ public class LivrosServiceImpl implements LivrosService {
     private LivrosRepository livrosRepo;
 
     @Transactional
-    public Livros cadastrarLivro(String nome, String autor, String categoria) {
+    public Livros cadastrarLivro(String nome, String autor, String editora, String categoria) {
         Categoria cat = catRepo.findByNome(categoria);
-        if(nome == "" || nome == null || autor == "" || autor == null || categoria == "" || categoria == null) {
+        if(nome == "" || nome == null || autor == "" || autor == null || editora == "" || editora == null || categoria == "" || categoria == null) {
             throw new RuntimeException("Invalid Parameters");
         }
         if(cat == null) {
@@ -35,6 +35,7 @@ public class LivrosServiceImpl implements LivrosService {
         Livros livros = new Livros();
         livros.setNome(nome);
         livros.setAutor(autor);
+        livros.setEditora(editora);
         livros.setCategorias(new HashSet<Categoria>());
         livros.getCategorias().add(cat);
         livrosRepo.save(livros);
