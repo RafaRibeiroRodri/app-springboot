@@ -24,6 +24,9 @@ public class LivrosServiceImpl implements LivrosService {
     @Transactional
     public Livros cadastrarLivro(String nome, String autor, String categoria) {
         Categoria cat = catRepo.findByNome(categoria);
+        if(nome == "" || nome == null || autor == "" || autor == null || categoria == "" || categoria == null) {
+            throw new RuntimeException("Invalid Parameters");
+        }
         if(cat == null) {
             cat = new Categoria();
             cat.setNome(categoria);

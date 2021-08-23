@@ -84,4 +84,22 @@ class SpringBootAppApplicationTests {
 
         assertFalse(livrosRepo.buscaPorNomeCategoria("Educação").isEmpty());
     }
+
+    @Test
+    void livrosServiceErrorNomeTest() {
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("", "autor", "Educação"));
+        assertTrue(runtimeException.getMessage().contains("Invalid Parameters"));
+    }
+
+    @Test
+    void livrosServiceErrorAutorTest() {
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("Introdução a programação", "", "Educação"));
+        assertTrue(runtimeException.getMessage().contains("Invalid Parameters"));
+    }
+
+    @Test
+    void livrosServiceErrorCategoriaTest() {
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> livrosService.cadastrarLivro("Introdução a programação", "autor", ""));
+        assertTrue(runtimeException.getMessage().contains("Invalid Parameters"));
+    }
 }
