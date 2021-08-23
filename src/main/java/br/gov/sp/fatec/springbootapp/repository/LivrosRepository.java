@@ -13,6 +13,8 @@ public interface LivrosRepository extends JpaRepository<Livros, Long> {
 
     public Livros findByNomeAndAutor(String nome, String autor);
 
+    public Livros findByNomeAndAutorAndEditora(String nome, String autor, String editora);
+
     @Query("select n from Livros n inner join n.categorias c where c.nome = ?1")
     public List<Livros> buscaPorNomeCategoria(String categoria);
 

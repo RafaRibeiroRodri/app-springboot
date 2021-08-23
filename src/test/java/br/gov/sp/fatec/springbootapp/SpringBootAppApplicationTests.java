@@ -80,6 +80,13 @@ class SpringBootAppApplicationTests {
     }
 
     @Test
+    void livrosServiceFindByNomeAndAutorAndEditoraTest() {
+        livrosService.cadastrarLivro("Introdução a programação", "autor", "editora", "Educação");
+
+        assertNotNull(livrosRepo.findByNomeAndAutorAndEditora("Introdução a programação", "autor", "editora").getId());
+    }
+
+    @Test
     void livrosRepositoryBuscaPorCategoriaTest() {
         livrosService.cadastrarLivro("Introdução a programação", "autor", "editora", "Educação");
 
